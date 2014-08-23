@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class HTMLComposer {
+public class AtCoderComposer {
     public static void compose(final Downloader d, final String pageName, final String id)
             throws Converter.InconvertibleException {
         final String source = d.getPage(pageName);
@@ -68,21 +68,35 @@ public class HTMLComposer {
         final List<String> sampleInputs = sc.getSections(SectionNames.sampleInput, SectionNames.sampleInputF);
         final List<String> sampleOutputs = sc.getSections(SectionNames.sampleOutput, SectionNames.sampleOutputF);
 
-        final StringBuilder sampleInput = new StringBuilder();
-        for (final String s : sampleInputs)
-            sampleInput.append(s);
-        final StringBuilder sampleOutput = new StringBuilder();
-        for (final String s : sampleOutputs)
-            sampleOutput.append(s);
+        // -- this is concat format --
+//        final StringBuilder sampleInput = new StringBuilder();
+//        for (final String s : sampleInputs)
+//            sampleInput.append(s);
+//        final StringBuilder sampleOutput = new StringBuilder();
+//        for (final String s : sampleOutputs)
+//            sampleOutput.append(s);
+//
+//        sb.append("<h3>Sample Input</h3>\n\n");
+//        sb.append(new Converter2HTML(sampleInput.toString().replace("\n\n", "\n"), map, null).get());
+//
+//        sb.append("</div><div class=\"part\">");
+//        sb.append("<h3>Output for the Sample Input</h3>\n\n");
+//        sb.append(new Converter2HTML(sampleOutput.toString().replace("\n\n", "\n"), map, null).get());
 
-        sb.append("<h3>Sample Input</h3>\n\n");
-        sb.append(new Converter2HTML(sampleInput.toString().replace("\n\n", "\n"), map, null).get());
+        final int n = sampleInputs.size();
+        if (sampleOutputs.size() != n)
+            throw new RuntimeException(String.format("%d != %d", n, sampleOutputs.size()));
 
-        sb.append("</div><div class=\"part\">");
-        sb.append("<h3>Output for the Sample Input</h3>\n\n");
-        sb.append(new Converter2HTML(sampleOutput.toString().replace("\n\n", "\n"), map, null).get());
+        for (int i = 0; i < n; i++) {
+            sb.append("</div><hr /><div class=\"part\">");
+            sb.append("<h3>Sample Input " + (i + 1) + "</h3>\n\n");
+            sb.append(new Converter2HTML(sampleInputs.get(i), map, null).get());
+            sb.append("</div><div class=\"part\">");
+            sb.append("<h3>Output for the Sample Input " + (i + 1) + "</h3>\n\n");
+            sb.append(new Converter2HTML(sampleOutputs.get(i), map, null).get());
+        }
 
-        if(sc.hasSection("Note")) {
+        if (sc.hasSection("Note")) {
             sb.append("</div><hr /><div class=\"part\">");
             sb.append("<h3>Note</h3>\n\n");
             sb.append(new Converter2HTML(sc.getSection("Note"), map, null).get());
@@ -91,6 +105,6 @@ public class HTMLComposer {
         sb.append("</div>");
 
         Writer.writeString(new File("html/", id + ".html"), sb.toString());
-        Writer.writeImages(new File("html/", "images"), map);
+        Writer.writeImages(new File("html/", "fig"), map);
     }
 }

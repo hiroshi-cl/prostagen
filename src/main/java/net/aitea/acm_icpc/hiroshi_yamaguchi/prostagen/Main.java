@@ -1,12 +1,12 @@
 package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen;
 
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.HTMLComposer;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXComposer;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderMergedComposer;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXMergedComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
 
 public class Main {
     private static final String[] names = {
-            "問題/A+B"
+            "問題/ほげ"
     };
 
     public static void main(String... args) throws Exception {
@@ -21,8 +21,8 @@ public class Main {
             try {
                 System.err.println(i + ": " + names[i]);
                 final char c = (char) ('A' + i);
+                AtCoderComposer.compose(d, names[i], "" + c);
                 TeXComposer.compose(d, names[i], "" + c);
-                HTMLComposer.compose(d, names[i], "" + c);
             } catch (Exception e) {
                 e.printStackTrace();
                 //throw null;

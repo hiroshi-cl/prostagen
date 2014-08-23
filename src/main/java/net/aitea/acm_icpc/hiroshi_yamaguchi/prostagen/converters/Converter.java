@@ -2,6 +2,7 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters;
 
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,7 +84,7 @@ public abstract class Converter {
         return "\n";
     }
 
-    private String paragraph() throws InconvertibleException {
+    private String rawParagraph() throws InconvertibleException {
         final StringBuilder sb = new StringBuilder();
         while (true) {
             if (cs[c] == '~')
@@ -102,7 +103,11 @@ public abstract class Converter {
                     break;
             }
         }
-        return wrapParagraph(sb.toString());
+        return sb.toString();
+    }
+
+    private String paragraph() throws InconvertibleException {
+        return wrapParagraph(rawParagraph());
     }
 
     protected abstract String wrapParagraph(String s) throws InconvertibleException;
@@ -149,7 +154,7 @@ public abstract class Converter {
             if (cs[c] == '\n')
                 item.append(block());
             else
-                item.append(paragraph());
+                item.append(rawParagraph());
             while (lcnt(cs, '-', c) > level)
                 item.append(itemize());
             container.append(itemizeItem(item.toString()));
@@ -170,7 +175,7 @@ public abstract class Converter {
             if (cs[c] == '\n')
                 item.append(block());
             else
-                item.append(paragraph());
+                item.append(rawParagraph());
             while (lcnt(cs, '+', c) > level)
                 item.append(enumerate());
             container.append(enumerateItem(item.toString()));
@@ -224,7 +229,7 @@ public abstract class Converter {
                 if (cs[c] == '\n')
                     item.append(block());
                 else
-                    item.append(paragraph());
+                    item.append(rawParagraph());
                 while (lcnt(cs, ':', c) > level)
                     item.append(description());
                 container.append(descriptionItem(item.toString()));
@@ -239,42 +244,89 @@ public abstract class Converter {
 
     protected abstract String descriptionItem(String s) throws InconvertibleException;
 
+    protected static enum TableMode {
+        Head, Body, Foot, Config;
+
+        static TableMode tableMode(final String column) throws InconvertibleException {
+            switch (column) {
+                case "cb":
+                    return Config;
+                case "hb":
+                    return Head;
+                case "fb":
+                    return Foot;
+                case "b":
+                    return Body;
+                default:
+                    throw new InconvertibleException();
+            }
+        }
+    }
+
     private String table() throws InconvertibleException {
         final String first = readLine();
         if (!"cfh|".contains(first.substring(first.length() - 1)))
             return null;
-        if ("cfh".contains(first.substring(first.length() - 1)))
-            throw new InconvertibleException();
-        String[] ss = first.substring(1, first.length() - 1).split("|");
-        final int columns = ss.length;
-        final StringBuilder sb = new StringBuilder();
+        String[] ss = (first + "b").substring(1).split("\\|");
+        final int columns = ss.length - 1;
+        final StringBuilder head = new StringBuilder();
+        final StringBuilder body = new StringBuilder();
+        final StringBuilder foot = new StringBuilder();
         for (String line = first; ; ) {
+            final TableMode mode = TableMode.tableMode(ss[columns]);
+            if (mode == TableMode.Config)
+                throw new InconvertibleException();
+            final StringBuilder linesb = new StringBuilder();
+            for (int i = 0; i < columns; i++)
+                if (ss[i].startsWith("~"))
+                    linesb.append(wrapTH(ss[i].substring(1)));
+                else
+                    linesb.append(wrapTC(ss[i]));
+            final String wrappedLine = wrapTR(linesb.toString());
+            switch (mode) {
+                case Head: {
+                    head.append(wrappedLine);
+                    break;
+                }
+                case Body: {
+                    body.append(wrappedLine);
+                    break;
+                }
+                case Foot: {
+                    foot.append(wrappedLine);
+                    break;
+                }
+            }
             final int t = c;
             line = readLine();
-            if (!"cfh|".contains(line.substring(line.length() - 1))) {
+            if (line.isEmpty() || !"cfh|".contains(line.substring(line.length() - 1))) {
                 c = t;
                 break;
             }
-            if ("cfh".contains(line.substring(line.length() - 1)))
-                throw new InconvertibleException();
-            ss = line.substring(1, line.length() - 1).split("|");
-            if (ss.length != columns) {
+            ss = (line + "b").substring(1).split("\\|");
+            if (ss.length - 1 != columns) {
                 c = t;
                 break;
             }
-            final StringBuilder linesb = new StringBuilder();
-            for (final String s : ss)
-                linesb.append(wrapTC(s));
-            sb.append(wrapTR(linesb.toString()));
         }
-        return wrapTable(sb.toString(), columns);
+        return wrapTable(
+                wrapTHead(head.toString()) + wrapTBody(body.toString()) + wrapTFoot(foot.toString()),
+                columns);
     }
 
     protected abstract String wrapTable(final String s, final int columns) throws InconvertibleException;
 
+    protected abstract String wrapTHead(final String s) throws InconvertibleException;
+
+    protected abstract String wrapTBody(final String s) throws InconvertibleException;
+
+    protected abstract String wrapTFoot(final String s) throws InconvertibleException;
+
     protected abstract String wrapTR(final String s) throws InconvertibleException;
 
     protected abstract String wrapTC(final String s) throws InconvertibleException;
+
+    protected abstract String wrapTH(final String s) throws InconvertibleException;
 
     private String verbatim() throws InconvertibleException {
         final StringBuilder sb = new StringBuilder();

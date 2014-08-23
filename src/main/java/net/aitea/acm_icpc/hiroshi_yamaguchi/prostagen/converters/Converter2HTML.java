@@ -46,9 +46,10 @@ public class Converter2HTML extends Converter {
 
     @Override
     protected String image(Image img, String name, int scale) throws InconvertibleException {
-        return "<img src=\"/img/other/jag2013_autumn/" + name
-                + "\" height=\"" + (img.height * scale / 100)
-                + "\" width=\"" + (img.width * scale / 100) + "\" />";
+        throw new InconvertibleException();
+//        return "<img src=\"/img/other/jag2013_autumn/" + name
+//                + "\" height=\"" + (img.height * scale / 100)
+//                + "\" width=\"" + (img.width * scale / 100) + "\" />";
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Converter2HTML extends Converter {
     @Override
     protected String plain(String s) throws InconvertibleException {
         return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;")
-                .replaceAll("``(.+?)''", "<code>$1</code>").replaceAll("'(.)'", "<code>$1</code>")
+                .replaceAll("&quot;(.+?)&quot;", "\"<samp>$1</samp>\"").replaceAll("'(.)'", "'<samp>$1</samp>'")
                 .replaceAll("\\\\textit\\{(.+?)\\}", "<i>$1</i>")
                 .replaceAll("\\\\textbf\\{(.+?)\\}", "<b>$1</b>");
     }
@@ -99,12 +100,41 @@ public class Converter2HTML extends Converter {
 
     @Override
     protected String wrapTable(String s, int columns) {
-        return wrap("table", s) + "\n";
+        return String.format("<table border=\"1\">%s</table>", s) + "\n";
+    }
+
+    @Override
+    protected String wrapTHead(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            return "";
+        else
+            return wrap("thead", s) + "\n";
+    }
+
+    @Override
+    protected String wrapTBody(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            throw new InconvertibleException();
+        else
+            return wrap("tbody", s) + "\n";
+    }
+
+    @Override
+    protected String wrapTFoot(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            return "";
+        else
+            return wrap("tfoot", s) + "\n";
     }
 
     @Override
     protected String wrapTC(String s) {
-        return wrap("tc", s.trim());
+        return wrap("td", s.trim());
+    }
+
+    @Override
+    protected String wrapTH(String s) {
+        return wrap("th", s.trim());
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters;
 
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 
+import java.io.File;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +51,7 @@ public class Converter2TeX extends Converter {
         sb.append("\\begin{center}").append('\n');
         sb.append("\\vspace{+\\baselineskip}").append('\n');
         sb.append("\\includegraphics[width=120mm,bb=0 0 ").append(img.width).append(' ').append(img.height)
-                .append("]{fig/").append(name).append("}").append('\n');
+                .append("]{fig/").append(new File(name).getName()).append("}").append('\n');
         sb.append("\\end{center}").append('\n');
         // sb.append("\\caption{caption}").append('\n');
         sb.append("\\end{figure}").append('\n');
@@ -131,7 +132,36 @@ public class Converter2TeX extends Converter {
     }
 
     @Override
+    protected String wrapTHead(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            return "";
+        else
+            return s + "\\hline\n";
+    }
+
+    @Override
+    protected String wrapTBody(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            throw new InconvertibleException();
+        else
+            return s + "\n";
+    }
+
+    @Override
+    protected String wrapTFoot(String s) throws InconvertibleException {
+        if (s.isEmpty())
+            return "";
+        else
+            return "\\hline" + s + "\n";
+    }
+
+    @Override
     protected String wrapTC(String s) {
+        return "&" + s;
+    }
+
+    @Override
+    protected String wrapTH(String s) {
         return "&" + s;
     }
 

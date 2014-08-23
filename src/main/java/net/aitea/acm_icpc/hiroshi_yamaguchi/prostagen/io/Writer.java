@@ -25,12 +25,13 @@ public class Writer {
             try {
                 if (!path.exists())
                     path.mkdirs();
-                try (final FileOutputStream fos = new FileOutputStream(new File(path, et.getKey()))) {
+                try (final FileOutputStream fos = new FileOutputStream(
+                        new File(path, new File(et.getKey()).getName()))) {
                     fos.write(et.getValue().image);
                     fos.flush();
                 }
             } catch (IOException e) {
-                System.err.println(et.getKey() + "does not exist.");
+                System.err.println(et.getKey() + " does not exist.");
                 e.printStackTrace();
                 return false;
             }

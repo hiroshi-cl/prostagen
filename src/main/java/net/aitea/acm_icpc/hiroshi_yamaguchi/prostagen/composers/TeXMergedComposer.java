@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class TeXComposer {
+public class TeXMergedComposer {
     public static void compose(final Downloader d, final String pageName, final String id)
             throws Converter.InconvertibleException {
         final String source = d.getPage(pageName);
@@ -28,19 +28,13 @@ public class TeXComposer {
         sb.append(new Converter2TeXReplaceVerb(sc.getSection(SectionNames.output), map, "InputFormat").get());
         sb.append("\\Sample\n");
 
-        final List<String> sampleInputs = sc.getSections(SectionNames.sampleInput, SectionNames.sampleInputF);
-        final List<String> sampleOutputs = sc.getSections(SectionNames.sampleOutput, SectionNames.sampleOutputF);
+        final String sampleInput = sc.getSection(SectionNames.sampleInput);
+        final String sampleOutput = sc.getSection(SectionNames.sampleOutput);
 
-        final int n = sampleInputs.size();
-        if (sampleOutputs.size() != n)
-            throw new RuntimeException(String.format("%d != %d", n, sampleOutputs.size()));
+        sb.append(new Converter2TeXReplaceVerb(sampleInput.replace("\n\n", "\n"), map, "SampleInput").get());
+        sb.append(new Converter2TeXReplaceVerb(sampleOutput.replace("\n\n", "\n"), map, "SampleOutput").get());
 
-        for (int i = 0; i < n; i++) {
-            sb.append(new Converter2TeXReplaceVerb(sampleInputs.get(i).replace("\n\n", "\n"), map, "SampleInput").get());
-            sb.append(new Converter2TeXReplaceVerb(sampleOutputs.get(i).replace("\n\n", "\n"), map, "SampleOutput").get());
-        }
-
-        if (sc.hasSection("Note")) {
+        if(sc.hasSection("Note")) {
             sb.append("\\Note\n");
             sb.append(new Converter2TeX(sc.getSection("Note"), map, null).get());
         }
