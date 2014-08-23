@@ -1,7 +1,7 @@
 package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen;
 
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderMergedComposer;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXMergedComposer;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderComposer;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
 
 public class Main {
