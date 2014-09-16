@@ -24,6 +24,14 @@ public class TeXComposer {
         sb.append(new Converter2TeX(sc.getSection(SectionNames.statement), map, null).get());
         sb.append("\\Input\n");
         sb.append(new Converter2TeXReplaceVerb(sc.getSection(SectionNames.input), map, "InputFormat").get());
+
+        if (sc.hasSection(SectionNames.constraints)) {
+            sb.append("\\Constraints\n");
+            sb.append(new Converter2TeXReplaceVerb(sc.getSection(SectionNames.constraints), map, "InputFormat").get());
+        } else {
+            System.err.println("No constraints section.");
+        }
+
         sb.append("\\Output\n");
         sb.append(new Converter2TeXReplaceVerb(sc.getSection(SectionNames.output), map, "InputFormat").get());
         sb.append("\\Sample\n");

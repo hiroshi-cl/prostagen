@@ -59,29 +59,20 @@ public class AtCoderComposer {
         sb.append("<h3>Input</h3>\n");
         sb.append(new Converter2HTMLReplaceVerb(sc.getSection(SectionNames.input), map, "blockquote").get());
 
+        if (sc.hasSection(SectionNames.constraints)) {
+            sb.append("<h4>Constraints</h4>\n");
+            sb.append(new Converter2HTMLReplaceVerb(sc.getSection(SectionNames.constraints), map, "blockquote").get());
+        } else {
+            System.err.println("No constraints section.");
+        }
+
         sb.append("</div><div class=\"part\">");
         sb.append("<h3>Output</h3>\n");
         sb.append(new Converter2HTMLReplaceVerb(sc.getSection(SectionNames.output), map, "blockquote").get());
 
-//        sb.append("</div><hr /><div class=\"part\">");
 
         final List<String> sampleInputs = sc.getSections(SectionNames.sampleInput, SectionNames.sampleInputF);
         final List<String> sampleOutputs = sc.getSections(SectionNames.sampleOutput, SectionNames.sampleOutputF);
-
-        // -- this is concat format --
-//        final StringBuilder sampleInput = new StringBuilder();
-//        for (final String s : sampleInputs)
-//            sampleInput.append(s);
-//        final StringBuilder sampleOutput = new StringBuilder();
-//        for (final String s : sampleOutputs)
-//            sampleOutput.append(s);
-//
-//        sb.append("<h3>Sample Input</h3>\n\n");
-//        sb.append(new Converter2HTML(sampleInput.toString().replace("\n\n", "\n"), map, null).get());
-//
-//        sb.append("</div><div class=\"part\">");
-//        sb.append("<h3>Output for the Sample Input</h3>\n\n");
-//        sb.append(new Converter2HTML(sampleOutput.toString().replace("\n\n", "\n"), map, null).get());
 
         final int n = sampleInputs.size();
         if (sampleOutputs.size() != n)

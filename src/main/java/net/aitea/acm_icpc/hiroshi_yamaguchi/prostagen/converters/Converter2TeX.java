@@ -50,7 +50,7 @@ public class Converter2TeX extends Converter {
         sb.append("\\begin{figure}[htbp]").append('\n');
         sb.append("\\begin{center}").append('\n');
         sb.append("\\vspace{+\\baselineskip}").append('\n');
-        sb.append("\\includegraphics[width=120mm,bb=0 0 ").append(img.width).append(' ').append(img.height)
+        sb.append("\\includegraphics[width=80mm,bb=0 0 ").append(img.width).append(' ').append(img.height)
                 .append("]{fig/").append(new File(name).getName()).append("}").append('\n');
         sb.append("\\end{center}").append('\n');
         // sb.append("\\caption{caption}").append('\n');
