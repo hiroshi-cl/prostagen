@@ -63,7 +63,7 @@ public class AtCoderComposer {
         sb.append("<h3>Output</h3>\n");
         sb.append(new Converter2HTMLReplaceVerb(sc.getSection(SectionNames.output), map, "blockquote").get());
 
-//        sb.append("</div><hr /><div class=\"part\">");
+        sb.append("</div><hr /><div class=\"part\">");
 
         final List<String> sampleInputs = sc.getSections(SectionNames.sampleInput, SectionNames.sampleInputF);
         final List<String> sampleOutputs = sc.getSections(SectionNames.sampleOutput, SectionNames.sampleOutputF);
