@@ -24,7 +24,7 @@ public class AtCoderComposer {
                 "\tMathJax.Hub.Config({ tex2jax: { inlineMath: [[\"$\",\"$\"], [\"\\\\(\",\"\\\\)\"]], processEscapes: true }});\n" +
                 "</script>\n" +
                 "<script type=\"text/javascript\"\n" +
-                "\tsrc=\"http://acm-icpc.aitea.net/files/mathjax/MathJax.js?config=TeX-AMS_HTML\">\n" +
+                "\tsrc=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\">\n" +
                 "</script>\n" +
                 "<meta http-equiv=\"X-UA-Compatible\" CONTENT=\"IE=EmulateIE7\" />");
         sb.append("<style type=\"text/css\">");
