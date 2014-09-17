@@ -128,7 +128,7 @@ public class Converter2TeX extends Converter {
         final StringBuilder sb = new StringBuilder("|");
         for (int i = 0; i < columns; i++)
             sb.append("l|");
-        return "\\begin{table}{" + sb.toString() + "}\n" + s + "\\end{table}\n";
+        return "\\begin{tabular}{" + sb.toString() + "}\\hline\n" + s + "\\end{tabular}\n";
     }
 
     @Override
@@ -136,7 +136,7 @@ public class Converter2TeX extends Converter {
         if (s.isEmpty())
             return "";
         else
-            return s + "\\hline\n";
+            return s + "\n";
     }
 
     @Override
@@ -152,7 +152,7 @@ public class Converter2TeX extends Converter {
         if (s.isEmpty())
             return "";
         else
-            return "\\hline" + s + "\n";
+            return s + "\n";
     }
 
     @Override
@@ -167,7 +167,7 @@ public class Converter2TeX extends Converter {
 
     @Override
     protected String wrapTR(String s) {
-        return s.substring(1) + "\\\\";
+        return s.substring(1) + "\\\\\\hline\n";
     }
 
     @Override

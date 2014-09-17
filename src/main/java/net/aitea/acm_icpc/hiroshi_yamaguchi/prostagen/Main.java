@@ -1,5 +1,7 @@
 package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen;
 
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderMergedComposer;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXMergedComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
@@ -21,6 +23,8 @@ public class Main {
             try {
                 System.err.println(i + ": " + names[i]);
                 final char c = (char) ('A' + i);
+                AtCoderMergedComposer.compose(d, names[i], "" + c);
+                TeXMergedComposer.compose(d, names[i], "" + c);
                 AtCoderComposer.compose(d, names[i], "" + c);
                 TeXComposer.compose(d, names[i], "" + c);
             } catch (Exception e) {

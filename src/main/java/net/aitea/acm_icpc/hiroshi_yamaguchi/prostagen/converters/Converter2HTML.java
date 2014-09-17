@@ -46,7 +46,7 @@ public class Converter2HTML extends Converter {
 
     @Override
     protected String image(Image img, String name, int scale) throws InconvertibleException {
-       return "<img src=\"/img/other/jag2014_summer_day4/" + name
+           return "<img src=\"/img/other/***/" + name
                + "\" height=\"" + (img.height * scale / 100)
                + "\" width=\"" + (img.width * scale / 100) + "\" />";
     }
