@@ -3,6 +3,8 @@ prostagen
 
 Problem statement generator (from pukiwiki to html/tex)
 
+old versions: https://github.com/hiroshi-cl/prostagen-old
+
 Usage
 -----
 
