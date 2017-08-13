@@ -9,13 +9,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Downloader {
+public class PukiWikiDownloader {
     private static final String tagWikiSourceBegin = "<div id=\"body\"><pre id=\"source\">";
     private static final String tagWikiSourceEnd = "</pre></div>";
     private static final Pattern p1 = Pattern.compile("ref\\((?:&quot;)?([^,]+?)(?:,.+)?(?:&quot;)?\\)");
     private final String wikiURL, encode;
 
-    public Downloader(String wikiURL, String username, String password, String encode)
+    public PukiWikiDownloader(String wikiURL, String username, String password, String encode)
             throws UnsupportedEncodingException {
         this.wikiURL = wikiURL;
         this.encode = encode;

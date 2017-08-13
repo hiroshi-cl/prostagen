@@ -3,7 +3,7 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2HTML;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2HTMLReplaceVerb;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.PukiWikiDownloader;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Writer;
 
 import java.io.BufferedReader;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 public class DomesticComposer {
-    public static void compose(final Downloader d, final String pageName, final String id)
+    public static void compose(final PukiWikiDownloader d, final String pageName, final String id)
             throws Converter.InconvertibleException {
         final String source = d.getPage(pageName);
 //        final Map<String, Image> map = d.getImages(pageName, source);

@@ -4,7 +4,7 @@ import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderMergedCom
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXMergedComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.AtCoderComposer;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers.TeXComposer;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.PukiWikiDownloader;
 
 public class Main {
     private static final String[] names = {
@@ -17,7 +17,7 @@ public class Main {
 //            Runtime.getRuntime().exec("pwd").getInputStream().read(bs);
 //            System.err.println(new String(bs));
 //        }
-        final Downloader d = new Downloader("http://example.com/pukiwiki/",
+        final PukiWikiDownloader d = new PukiWikiDownloader("http://example.com/pukiwiki/",
                 "user", "pass", "utf-8");
         for (int i = 0; i < names.length; i++)
             try {
