@@ -33,7 +33,7 @@ public class TeXMergedComposer {
         sb.append(new Converter2TeXReplaceVerb(sampleInput.replace("\n\n", "\n"), map, "SampleInput").get());
         sb.append(new Converter2TeXReplaceVerb(sampleOutput.replace("\n\n", "\n"), map, "SampleOutput").get());
 
-        if(sc.hasSection("Note")) {
+        if (sc.hasSection("Note")) {
             sb.append("\\Note\n");
             sb.append(new Converter2TeX(sc.getSection("Note"), map, null).get());
         }
