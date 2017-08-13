@@ -8,7 +8,6 @@ import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Writer;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 public class TeXMergedComposer {

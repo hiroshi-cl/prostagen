@@ -3,7 +3,7 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers;
 import java.util.*;
 
 public class Sectionizer {
-	private final NavigableMap<String, String> map = new TreeMap<String, String>();
+	private final NavigableMap<String, String> map = new TreeMap<>();
 
 	public Sectionizer(final String s) {
 		final Scanner sc = new Scanner(s);
@@ -14,13 +14,13 @@ public class Sectionizer {
 			if (line.matches("\\*[^*].*"))
 				map.put("Title", line.substring(1).replaceAll("\\[.+?\\]", "").replaceAll("\\(.+?\\)", "").trim());
 			if (line.startsWith("----") || line.matches("\\*+[^*].*")) {
-				map.put(sectionName.toString(), section.toString());
+				map.put(sectionName, section.toString());
 				sectionName = line.matches("\\*+[^*].*") ? line.substring(2).replaceAll("\\[.+?\\]", "").trim() : "";
 				section.delete(0, section.length());
 			} else
 				section.append(line).append('\n');
 		}
-		map.put(sectionName.toString(), section.toString());
+		map.put(sectionName, section.toString());
 	}
 
 	public String getSection(final String sectionName) {
@@ -34,7 +34,7 @@ public class Sectionizer {
 	}
 
 	public List<String> getSections(final String sectionNamePrefix, final String regex) {
-		final List<String> list = new ArrayList<String>();
+		final List<String> list = new ArrayList<>();
 		for (final String key : map.tailMap(sectionNamePrefix).keySet()) {
 			if (!key.startsWith(sectionNamePrefix))
 				break;
