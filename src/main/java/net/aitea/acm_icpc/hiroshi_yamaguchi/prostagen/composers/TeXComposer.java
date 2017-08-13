@@ -3,7 +3,7 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2TeX;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2TeXReplaceVerb;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.PukiWikiDownloader;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.AbstractDownloader;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Writer;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TeXComposer {
-    public static void compose(final PukiWikiDownloader d, final String pageName, final String id)
+    public static void compose(final AbstractDownloader d, final String pageName, final String id)
             throws Converter.InconvertibleException {
         final String source = d.getPage(pageName);
         final Map<String, Image> map = d.getImages(pageName, source);
