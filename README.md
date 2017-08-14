@@ -32,3 +32,12 @@ Memo
 ----------
 * バックエンドで pandoc とかを使うようにして高次の文書構造だけ担当するようにした方がいいかな？
 * TODO: pandoc の pukiwiki プラグインを作る？
+
+GoogleDocsDownloaderの使い方
+---------------------------
+
+1. Google Drive 用の API Key を取得する。
+  * [このURL](https://console.developers.google.com/start/api?id=drive) にアクセスしてGoogle Drive APIを有効にしたプロジェクトを作成する。プロジェクト名は prostagen などにしておくと良いかも。
+  * 「認証情報を作成」→「API キー」を選択するとAPI Keyが発行される。
+2. fileIdには `https://docs.google.com/document/d/XXXXXXXX/edit` の `XXXXXXXX` の部分を指定する。
+3. 読み込ませたいGoogle Docsのファイルは，共有設定から「共有可能なリンクを取得」を設定して「リンクを知っている全員が閲覧可」にしておく。
