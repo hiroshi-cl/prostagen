@@ -3,16 +3,15 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.composers;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2TeX;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters.Converter2TeXReplaceVerb;
-import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Downloader;
+import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.AbstractDownloader;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Writer;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 public class TeXMergedComposer {
-    public static void compose(final Downloader d, final String pageName, final String id)
+    public static void compose(final AbstractDownloader d, final String pageName, final String id)
             throws Converter.InconvertibleException {
         final String source = d.getPage(pageName);
         final Map<String, Image> map = d.getImages(pageName, source);
@@ -34,7 +33,7 @@ public class TeXMergedComposer {
         sb.append(new Converter2TeXReplaceVerb(sampleInput.replace("\n\n", "\n"), map, "SampleInput").get());
         sb.append(new Converter2TeXReplaceVerb(sampleOutput.replace("\n\n", "\n"), map, "SampleOutput").get());
 
-        if(sc.hasSection("Note")) {
+        if (sc.hasSection("Note")) {
             sb.append("\\Note\n");
             sb.append(new Converter2TeX(sc.getSection("Note"), map, null).get());
         }

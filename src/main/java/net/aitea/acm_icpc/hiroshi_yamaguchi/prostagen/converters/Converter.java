@@ -2,7 +2,6 @@ package net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.converters;
 
 import net.aitea.acm_icpc.hiroshi_yamaguchi.prostagen.io.Image;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -244,7 +243,7 @@ public abstract class Converter {
 
     protected abstract String descriptionItem(String s) throws InconvertibleException;
 
-    protected static enum TableMode {
+    protected enum TableMode {
         Head, Body, Foot, Config;
 
         static TableMode tableMode(final String column) throws InconvertibleException {
@@ -430,7 +429,7 @@ public abstract class Converter {
         return sb.toString();
     }
 
-    protected static enum Align {
+    protected enum Align {
         LEFT, RIGHT, CENTER
     }
 
